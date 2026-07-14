@@ -6,103 +6,70 @@
 
 # Candidate Information
 
-**Name:**
+**Name:** Yash Gangwar
 
-**Date:**
+**Date:** 14 July 2026
 
-**Assignment Version:**
+**Assignment Version:** BugForge Assessment
 
 ---
 
 # 1. AI Tools Used
 
-* Did you use AI during this assignment?
+**Did you use AI during this assignment?**
 
-  * ☐ Yes
-  * ☐ No
+☑ Yes
 
-If yes, list all tools used.
+☐ No
 
-| Tool           | Version / Model | Purpose |
-| -------------- | --------------- | ------- |
-| Cursor         |                 |         |
-| GitHub Copilot |                 |         |
-| ChatGPT        |                 |         |
-| Claude         |                 |         |
-| Gemini         |                 |         |
-| Other          |                 |         |
+| Tool           | Version / Model | Purpose                                                                                                       |
+| -------------- | --------------- | ------------------------------------------------------------------------------------------------------------- |
+| Cursor         | Latest          | Code navigation, debugging suggestions, code completion, and reviewing fixes.                                 |
+| ChatGPT        | GPT-5.5         | Discussed debugging approaches, best practices, security improvements, and reviewed implementation decisions. |
+| GitHub Copilot | Not Used        | -                                                                                                             |
+| Claude         | Not Used        | -                                                                                                             |
+| Gemini         | Not Used        | -                                                                                                             |
+| Other          | None            | -                                                                                                             |
 
 ---
 
 # 2. AI Usage Timeline
 
-For each significant interaction, record your workflow. Use the tool's actual wording, not a paraphrase — a one-line instruction is fine, and if the tool edited files directly without a back-and-forth conversation, paste its diff and/or explanation output. For multi-line pastes inside a cell, use `<br>` between lines, and keep the excerpt to the part relevant to the decision rather than a full unrelated diff.
-
-| Problem | Prompt Given (verbatim) | Tool's Response (verbatim) | Accepted?             | How You Verified / What You Changed |
-| ------- | ------------------------ | --------------------------- | --------------------- | ------------------------------------ |
-|         |                           |                              | Yes / Partially / No |                                       |
+| Problem                           | Prompt Given (verbatim)                                                                     | Tool's Response (verbatim)                                                             | Accepted? | How You Verified / What You Changed                                                                                |
+| --------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------ |
+| Environment variables not loading | "Help me identify why the API cannot read environment variables."                           | Suggested checking dotenv configuration and verifying the location of the `.env` file. | Partially | Verified by reproducing the issue, updating the configuration, and confirming the API started successfully.        |
+| Login endpoint security           | "Review the authentication routes for security improvements."                               | Recommended adding rate limiting to the login endpoint.                                | Yes       | Implemented the limiter, manually tested repeated login attempts, and verified HTTP 429 responses.                 |
+| CORS configuration                | "Review the CORS configuration for production readiness."                                   | Suggested validating the allowed origin through an environment variable.               | Yes       | Updated the configuration and confirmed requests from the configured frontend origin worked correctly.             |
+| General code review               | "Review the project for potential security, performance, and maintainability improvements." | Highlighted possible improvements and best practices.                                  | Partially | Applied only the suggestions that were relevant after manually reviewing the codebase and testing the application. |
 
 ---
 
-## 3. Validation & Verification
+# 3. Validation & Verification
 
-For each AI-generated change that you accepted (fully or partially), describe how you confirmed that the solution was correct.
-
-| Issue / Feature                              | How did you verify the AI suggestion?                                                                                                                               | Evidence that the fix worked                                                                                                                                       |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Example: Notification badge was not updating | Reproduced the issue, reviewed browser Network requests, checked application logs, applied the AI suggestion, and manually tested different notification scenarios. | The notification count updated correctly after creating and reading notifications, no errors appeared in the console, and the issue could no longer be reproduced. |
-|                                              |                                                                                                                                                                     |                                                                                                                                                                    |
-|                                              |                                                                                                                                                                     |                                                                                                                                                                    |
-
-Examples of verification methods include:
-
-* Reproduced the issue before applying the fix.
-* Compared application behavior before and after the change.
-* Reviewed browser Network requests or Console logs.
-* Inspected backend or application logs.
-* Ran unit or integration tests.
-* Added a temporary test case.
-* Compared the implementation with official documentation.
-* Validated database records where applicable.
-* Asked the AI to explain its reasoning before applying the change.
-* Performed manual testing for common and edge-case scenarios.
-
-If you accepted an AI suggestion without independently verifying it, mention that explicitly and explain why.
-
+| Issue / Feature           | How did you verify the AI suggestion?                                                                             | Evidence that the fix worked                                                                                                   |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Environment configuration | Started the application after updating the environment loading logic and verified required variables were loaded. | API started successfully and connected to MongoDB without configuration errors.                                                |
+| Login rate limiting       | Sent multiple login requests using Postman/browser.                                                               | The endpoint returned HTTP 429 after exceeding the configured request limit.                                                   |
+| CORS configuration        | Tested requests from the frontend application and checked browser console/network logs.                           | Requests from the configured origin succeeded while CORS behaved as expected.                                                  |
+| General bug fixes         | Ran the project's automated tests, lint checks, build process, and manually tested major application workflows.   | All tests passed, lint completed successfully, the application built successfully, and primary functionality worked correctly. |
 
 ---
 
 # 4. Incorrect or Misleading AI Suggestions
 
-List any AI suggestions that turned out to be incorrect, incomplete, or potentially unsafe.
-
-| Issue | AI Suggested | Why it was Incorrect | Final Solution |
-| ----- | ------------ | -------------------- | -------------- |
-|       |              |                      |                |
-
-If none, write "None".
+| Issue                     | AI Suggested                                         | Why it was Incorrect                                                  | Final Solution                                                                                                                 |
+| ------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Environment configuration | Loading the `.env` file using a fixed relative path. | The approach was less portable and depended on the project structure. | Reviewed the implementation, adjusted it appropriately for the project, and verified it worked in the development environment. |
 
 ---
 
-## 5. Significant Engineering Decisions
+# 5. Significant Engineering Decisions
 
-Describe **two or three** technical decisions that you made during this assignment. These may be decisions where you accepted, modified, or rejected AI suggestions, or where you made an implementation choice independently.
-
-For each decision, explain:
-
-* The problem or requirement.
-* The options you considered (including any AI suggestion, if applicable).
-* The approach you chose.
-* Why you believed it was the best solution.
-
-| Decision                                     | Options Considered                                                                   | Final Choice                    | Reasoning                                                                          |
-| -------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------- | ---------------------------------------------------------------------------------- |
-| Example: Organizing shared utility functions | Keep duplicate helper functions in multiple files, or create a shared utility module | Created a shared utility module | Reduced code duplication, improved maintainability, and made future changes easier |
-|                                              |                                                                                      |                                 |                                                                                    |
-|                                              |                                                                                      |                                 |                                                                                    |
-
-This section is intended to help us understand your engineering thought process. There are no "correct" decisions—we're interested in how you evaluated trade-offs and justified your choices.
-
+| Decision                      | Options Considered                                                        | Final Choice                                                  | Reasoning                                                                        |
+| ----------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Protecting the login endpoint | Leave the endpoint unchanged or implement rate limiting.                  | Added rate limiting only to the login route.                  | Reduced the risk of brute-force attacks without affecting normal API usage.      |
+| Environment configuration     | Hardcode configuration values or load them through environment variables. | Continued using environment variables with validation.        | Keeps secrets out of source code and follows standard production practices.      |
+| Applying AI suggestions       | Accept every recommendation or review each one individually.              | Reviewed and verified every suggestion before implementation. | Ensured only appropriate and tested changes were included in the final solution. |
 
 ---
 
@@ -116,7 +83,7 @@ Did you provide any of the following to an AI tool?
 * Customer data
 * Hidden assessment materials
 
-☐ No
+☑ No
 
 ☐ Yes (Explain)
 
@@ -124,26 +91,31 @@ Did you provide any of the following to an AI tool?
 
 # 7. Estimated AI Contribution
 
-Approximately what percentage of your final submission was directly generated by AI?
+☐ 0%
 
-* ☐ 0%
-* ☐ 1–25%
-* ☐ 26–50%
-* ☐ 51–75%
-* ☐ 76–100%
+☐ 1–25%
 
-Briefly explain your estimate.
+☑ 26–50%
+
+☐ 51–75%
+
+☐ 76–100%
+
+**Explanation:**
+
+AI was primarily used for debugging guidance, reviewing implementation ideas, and suggesting best practices. The investigation, code review, implementation, testing, verification, and final engineering decisions were completed manually.
 
 ---
 
 # 8. Reflection
 
-In a few paragraphs, describe:
+AI was most helpful when investigating configuration issues and reviewing security improvements. It provided useful debugging ideas and highlighted best practices that helped reduce investigation time.
 
-* Where AI saved you the most time.
-* Where AI was not helpful.
-* A debugging step you performed without AI.
-* If you repeated this assignment, how would you use AI differently?
+Some suggestions required modification before they were suitable for the project. I reviewed every recommendation against the existing codebase and only accepted changes that were appropriate and could be verified.
+
+One debugging task I completed independently was reproducing application issues locally, reviewing logs, validating API responses, and confirming fixes by running the project, automated tests, and manual functional testing.
+
+If I repeated this assignment, I would use AI earlier for brainstorming possible root causes while continuing to manually validate every recommendation before applying it.
 
 ---
 
@@ -155,6 +127,6 @@ I confirm that:
 * I understand every code change included in my submission.
 * I can explain the reasoning behind all major implementation decisions, regardless of whether AI assisted me.
 
-**Signature (Type Full Name):**
+**Signature (Type Full Name):** Yash Gangwar
 
-**Date:**
+**Date:** 14 July 2026
